@@ -12,6 +12,8 @@ import {
   GatewayIntentBits,
 } from "discord.js";
 
+import("./utils/keepAlive");
+
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 // load commands
