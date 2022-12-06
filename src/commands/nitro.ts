@@ -47,11 +47,14 @@ optionsRange.forEach((i) => {
 const command: DiscordCommand = {
   data,
   async autocomplete(interaction: AutocompleteInteraction) {
-    const animatedEmojiNames = [...getAnimatedEmojis(interaction).keys()];
+    const animatedEmojis = getAnimatedEmojis(interaction);
     const focusedValue = interaction.options.getFocused().toLowerCase();
-    const filtered = animatedEmojiNames
-      .filter((emojiName) => emojiName.includes(focusedValue))
-      .slice(0, 25);
+    const filtered = animatedEmojis
+      .filter(
+        (emoji) => emoji.name && emoji.name.toLowerCase().includes(focusedValue)
+      )
+      .map((emoji) => emoji.name)
+      .slice(0, 25) as string[];
 
     await interaction.respond(
       filtered.map((choice) => ({ name: choice, value: choice }))
