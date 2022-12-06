@@ -4,7 +4,6 @@ import {
   ClientEvents,
   Collection,
   SlashCommandBuilder,
-  SlashCommandSubcommandsOnlyBuilder,
 } from "discord.js";
 
 declare global {
@@ -30,10 +29,7 @@ declare module "discord.js" {
   }
 
   export interface DiscordCommand {
-    data:
-      | SlashCommandBuilder
-      | SlashCommandSubcommandsOnlyBuilder
-      | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
+    data: SlashCommandBuilder;
     autocomplete?: (interaction: AutocompleteInteraction) => Promise<void>;
     execute: (interaction: ChatInputCommandInteraction) => Promise<void>;
   }

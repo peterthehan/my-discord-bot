@@ -24,7 +24,8 @@ const optionsRange = range(1, 3);
 
 const data = new SlashCommandBuilder()
   .setName("nitro")
-  .setDescription("Send animated emoji(s).");
+  .setDescription("Send animated emoji(s).")
+  .setDMPermission(false);
 
 optionsRange.forEach((i) => {
   data.addStringOption((option) => {
