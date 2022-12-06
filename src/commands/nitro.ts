@@ -10,15 +10,14 @@ import {
 
 import { range } from "../utils/range";
 
-function getAnimatedEmojis(
+function getAnimatedEmojisByName(
   interaction: BaseInteraction
 ): Collection<string, GuildEmoji> {
   return (
     interaction.guild?.emojis.cache
       .filter((emoji) => emoji.animated && Boolean(emoji.name))
       .reduce(
-        (emojis, emoji) =>
-          emojis.set(emoji.name?.toLowerCase() as string, emoji),
+        (emojis, emoji) => emojis.set(emoji.name as string, emoji),
         new Collection()
       ) ?? new Collection()
   );
@@ -47,7 +46,7 @@ optionsRange.forEach((i) => {
 const command: DiscordCommand = {
   data,
   async autocomplete(interaction: AutocompleteInteraction) {
-    const animatedEmojis = getAnimatedEmojis(interaction);
+    const animatedEmojis = getAnimatedEmojisByName(interaction);
     const focusedValue = interaction.options.getFocused().toLowerCase();
     const filtered = animatedEmojis
       .filter(
@@ -61,7 +60,7 @@ const command: DiscordCommand = {
     );
   },
   async execute(interaction: ChatInputCommandInteraction) {
-    const animatedEmojis = getAnimatedEmojis(interaction);
+    const animatedEmojis = getAnimatedEmojisByName(interaction);
     const emojis = optionsRange
       .map((i) => interaction.options.getString(`emoji-${i}`))
       .filter(Boolean) as string[];
