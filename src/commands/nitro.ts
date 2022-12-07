@@ -16,7 +16,10 @@ function getAnimatedEmojisByName(
 ): Collection<string, GuildEmoji> {
   return (interaction.guild?.emojis.cache ?? new Collection())
     .filter((emoji) => emoji.animated && Boolean(emoji.name))
-    .reduce((emojis, emoji) => emojis.set(emoji.name as string, emoji));
+    .reduce(
+      (emojis, emoji) => emojis.set(emoji.name as string, emoji),
+      new Collection()
+    );
 }
 
 const optionsRange = range(1, 3);
