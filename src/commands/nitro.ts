@@ -9,18 +9,14 @@ import {
 } from "discord.js";
 
 import { range } from "../utils/range";
+import { shuffleArray } from "../utils/shuffleArray";
 
 function getAnimatedEmojisByName(
   interaction: BaseInteraction
 ): Collection<string, GuildEmoji> {
-  return (
-    interaction.guild?.emojis.cache
-      .filter((emoji) => emoji.animated && Boolean(emoji.name))
-      .reduce(
-        (emojis, emoji) => emojis.set(emoji.name as string, emoji),
-        new Collection()
-      ) ?? new Collection()
-  );
+  return (interaction.guild?.emojis.cache ?? new Collection())
+    .filter((emoji) => emoji.animated && Boolean(emoji.name))
+    .reduce((emojis, emoji) => emojis.set(emoji.name as string, emoji));
 }
 
 const optionsRange = range(1, 3);
@@ -46,17 +42,21 @@ optionsRange.forEach((i) => {
 const command: DiscordCommand = {
   data,
   async autocomplete(interaction: AutocompleteInteraction) {
-    const animatedEmojis = getAnimatedEmojisByName(interaction);
+    const animatedEmojiNames = [...getAnimatedEmojisByName(interaction).keys()];
     const focusedValue = interaction.options.getFocused().toLowerCase();
-    const filtered = animatedEmojis
-      .filter(
-        (emoji) => emoji.name && emoji.name.toLowerCase().includes(focusedValue)
-      )
-      .map((emoji) => emoji.name)
-      .slice(0, 25) as string[];
+    let filtered;
+    if (focusedValue.length === 0) {
+      shuffleArray(animatedEmojiNames);
+      filtered = animatedEmojiNames;
+    } else {
+      filtered = animatedEmojiNames.filter(
+        (emojiName) =>
+          emojiName && emojiName.toLowerCase().includes(focusedValue)
+      );
+    }
 
     await interaction.respond(
-      filtered.map((choice) => ({ name: choice, value: choice }))
+      filtered.slice(0, 25).map((choice) => ({ name: choice, value: choice }))
     );
   },
   async execute(interaction: ChatInputCommandInteraction) {
@@ -65,8 +65,8 @@ const command: DiscordCommand = {
       .map((i) => interaction.options.getString(`emoji-${i}`))
       .filter(Boolean) as string[];
     const mapped = emojis
-      .filter((emoji) => animatedEmojis.has(emoji))
-      .map((emoji) => animatedEmojis.get(emoji)) as GuildEmoji[];
+      .map((emoji) => animatedEmojis.get(emoji))
+      .filter(Boolean) as GuildEmoji[];
 
     await interaction.reply(
       mapped.length
