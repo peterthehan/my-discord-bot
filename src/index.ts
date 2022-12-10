@@ -14,7 +14,13 @@ import {
 
 import("./utils/keepAlive");
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+  ],
+});
 
 // load commands
 (async (): Promise<void> => {
