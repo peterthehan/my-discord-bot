@@ -7,7 +7,8 @@ const event: DiscordEvent = {
   async execute(message: Message): Promise<void> {
     if (
       message.embeds.length === 0 ||
-      !message.content.includes("https://twitter.com/")
+      !message.content.includes("https://twitter.com/") ||
+      message.content.split("https://twitter.com/").length - 1 > 1
     ) {
       return;
     }
