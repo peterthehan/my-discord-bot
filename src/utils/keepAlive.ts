@@ -2,7 +2,7 @@ import http from "http";
 
 http
   .createServer(function (_req, res) {
-    res.write("OK");
-    res.end();
+    res.writeHead(200);
+    res.end("OK");
   })
   .listen(8080);
