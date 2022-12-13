@@ -10,7 +10,7 @@ import { DiscordCommand, REST, Routes } from "discord.js";
     process.env.DISCORD_BOT_TOKEN
   );
 
-  const guildIds = process.env.GUILD_IDS.split(",");
+  const guildIds = process.env.GUILD_IDS?.split(",");
 
   try {
     await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), {
