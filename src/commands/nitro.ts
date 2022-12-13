@@ -11,15 +11,26 @@ import {
 import { range } from "../utils/range";
 import { shuffleArray } from "../utils/shuffleArray";
 
+const map = new Map<string, Collection<string, GuildEmoji>>();
+
 function getAnimatedEmojisByName(
   interaction: BaseInteraction
 ): Collection<string, GuildEmoji> {
-  return (interaction.guild?.emojis.cache ?? new Collection())
-    .filter((emoji) => emoji.animated && Boolean(emoji.name))
-    .reduce(
-      (emojis, emoji) => emojis.set(emoji.name as string, emoji),
-      new Collection()
-    );
+  if (!interaction.guildId || !interaction.guild?.emojis) {
+    return new Collection<string, GuildEmoji>();
+  }
+
+  if (!map.has(interaction.guildId)) {
+    const animatedEmojis = interaction.guild.emojis.cache
+      .filter((emoji) => emoji.animated && Boolean(emoji.name))
+      .reduce(
+        (emojis, emoji) => emojis.set(emoji.name as string, emoji),
+        new Collection<string, GuildEmoji>()
+      );
+    map.set(interaction.guildId, animatedEmojis);
+  }
+
+  return map.get(interaction.guildId) as Collection<string, GuildEmoji>;
 }
 
 const optionsRange = range(1, 3);
