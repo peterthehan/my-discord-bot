@@ -56,7 +56,9 @@ optionsRange.forEach((i) => {
 const command: DiscordCommand = {
   data,
   async autocomplete(interaction: AutocompleteInteraction) {
-    const animatedEmojiNames = [...getAnimatedEmojisByName(interaction).keys()];
+    const animatedEmojiNames = Array.from(
+      getAnimatedEmojisByName(interaction).keys()
+    );
     const focusedValue = interaction.options.getFocused().toLowerCase();
     let filtered;
     if (focusedValue.length === 0) {

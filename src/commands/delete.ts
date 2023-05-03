@@ -30,7 +30,7 @@ async function getFilteredMessages(
     messageCollection.sweep((message) => message.author.id !== user.id);
   }
 
-  return [...messageCollection.values()].slice(0, count);
+  return Array.from(messageCollection.values()).slice(0, count);
 }
 
 function getButtonRow(): ActionRowBuilder<ButtonBuilder> {
