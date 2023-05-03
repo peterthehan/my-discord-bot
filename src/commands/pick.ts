@@ -11,7 +11,7 @@ const optionsRange = range(1, 25);
 
 const data = new SlashCommandBuilder()
   .setName("pick")
-  .setDescription("Randomly pick one item from a list of items.");
+  .setDescription("Pick one item at random from a list of items.");
 
 optionsRange.forEach((i) => {
   data.addStringOption((option) => {
