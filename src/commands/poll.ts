@@ -19,7 +19,7 @@ const command: DiscordCommand = {
     const question = interaction.options.getString("question", true);
     const response = await interaction.reply({ content: question });
     const message = await response.fetch();
-    ["👎", "👍"].forEach(async (emoji) => await message.react(emoji));
+    ["👍", "👎"].forEach(async (emoji) => await message.react(emoji));
   },
 };
 
