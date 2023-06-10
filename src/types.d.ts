@@ -9,8 +9,8 @@ import {
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      DISCORD_BOT_TOKEN: string;
       CLIENT_ID: string;
+      DISCORD_BOT_TOKEN: string;
       GUILD_IDS: string;
     }
   }
@@ -22,15 +22,15 @@ declare module "discord.js" {
   }
 
   export interface DiscordEvent {
-    name: keyof ClientEvents;
-    once?: boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     execute: (...args: any[]) => Promise<void>;
+    name: keyof ClientEvents;
+    once?: boolean;
   }
 
   export interface DiscordCommand {
-    data: SlashCommandBuilder;
     autocomplete?: (interaction: AutocompleteInteraction) => Promise<void>;
+    data: SlashCommandBuilder;
     execute: (interaction: ChatInputCommandInteraction) => Promise<void>;
   }
 }

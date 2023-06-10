@@ -1,7 +1,6 @@
 import { CacheType, DiscordEvent, Events, Interaction } from "discord.js";
 
 const event: DiscordEvent = {
-  name: Events.InteractionCreate,
   async execute(interaction: Interaction<CacheType>): Promise<void> {
     if (!interaction.isChatInputCommand()) {
       return;
@@ -26,6 +25,7 @@ const event: DiscordEvent = {
       });
     }
   },
+  name: Events.InteractionCreate,
 };
 
 module.exports = event;

@@ -1,7 +1,6 @@
 import { CacheType, DiscordEvent, Events, Interaction } from "discord.js";
 
 const event: DiscordEvent = {
-  name: Events.InteractionCreate,
   async execute(interaction: Interaction<CacheType>): Promise<void> {
     if (!interaction.isAutocomplete()) {
       return;
@@ -22,6 +21,7 @@ const event: DiscordEvent = {
       console.error(`Error executing ${interaction.commandName}`, error);
     }
   },
+  name: Events.InteractionCreate,
 };
 
 module.exports = event;

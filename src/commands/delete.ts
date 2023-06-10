@@ -82,25 +82,25 @@ const command: DiscordCommand = {
             : `Are you sure you want to delete ${messages.length} messages from ${user}?`,
         fields: [
           {
+            inline: true,
             name: "Oldest",
             value: oldestMessage.url,
-            inline: true,
           },
           {
+            inline: true,
             name: "Latest",
             value: latestMessage.url,
-            inline: true,
           },
         ],
       },
     ];
     const response = await interaction.reply({
-      embeds,
       components: [getButtonRow()],
+      embeds,
       ephemeral: true,
     });
 
-    const updatePayload = { embeds, components: [] };
+    const updatePayload = { components: [], embeds };
 
     try {
       const confirmation =

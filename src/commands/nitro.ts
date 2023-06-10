@@ -54,7 +54,6 @@ optionsRange.forEach((i) => {
 });
 
 const command: DiscordCommand = {
-  data,
   async autocomplete(interaction: AutocompleteInteraction) {
     const animatedEmojiNames = Array.from(
       getAnimatedEmojisByName(interaction).keys()
@@ -75,6 +74,7 @@ const command: DiscordCommand = {
       filtered.slice(0, 25).map((choice) => ({ name: choice, value: choice }))
     );
   },
+  data,
   async execute(interaction: ChatInputCommandInteraction) {
     const animatedEmojis = getAnimatedEmojisByName(interaction);
     const emojis = optionsRange
