@@ -88,7 +88,6 @@ const command: DiscordCommand = {
         );
       return applyCommonOptionalSubcommandOptions(subcommand);
     })
-    .setDefaultMemberPermissions(0)
     .setDMPermission(false),
   async execute(interaction: ChatInputCommandInteraction) {
     const message = interaction.options.getString("message", true);
