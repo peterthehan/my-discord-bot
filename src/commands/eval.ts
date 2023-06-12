@@ -40,9 +40,8 @@ const command: DiscordCommand = {
     );
     const output = tryCatch(() => eval(input));
 
-    await interaction.reply({
-      content: `${wrapCodeBlocks(input, "js")}${wrapCodeBlocks(output)}`,
-    });
+    await interaction.reply({ content: wrapCodeBlocks(input, "js") });
+    await interaction.followUp({ content: wrapCodeBlocks(output) });
   },
 };
 
