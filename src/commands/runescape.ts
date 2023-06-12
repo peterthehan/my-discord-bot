@@ -8,7 +8,7 @@ import getRuneScapeText from "runescape-text";
 
 const MAX_MESSAGE_LENGTH = 280;
 const MAX_PATTERN_LENGTH = 8;
-const WIDTH = 70;
+const WIDTH = 40;
 
 function applyCommonRequiredSubcommandOptions(
   subcommand: SlashCommandSubcommandBuilder
