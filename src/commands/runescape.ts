@@ -10,7 +10,9 @@ const MAX_MESSAGE_LENGTH = 280;
 const MAX_PATTERN_LENGTH = 8;
 const WIDTH = 35;
 const PADDING_TOP = 8;
+const PADDING_RIGHT = 8;
 const PADDING_BOTTOM = 8;
+const PADDING_LEFT = 8;
 
 function applyCommonRequiredSubcommandOptions(
   subcommand: SlashCommandSubcommandBuilder
@@ -103,6 +105,8 @@ const command: DiscordCommand = {
     const options = {
       maxMessageLength: MAX_MESSAGE_LENGTH,
       paddingBottom: PADDING_BOTTOM,
+      paddingLeft: PADDING_LEFT,
+      paddingRight: PADDING_RIGHT,
       paddingTop: PADDING_TOP,
     };
     const wordWrapOptions = { width: WIDTH };
