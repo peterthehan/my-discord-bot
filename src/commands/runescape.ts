@@ -8,7 +8,9 @@ import getRuneScapeText from "runescape-text";
 
 const MAX_MESSAGE_LENGTH = 280;
 const MAX_PATTERN_LENGTH = 8;
-const WIDTH = 40;
+const WIDTH = 35;
+const PADDING_TOP = 8;
+const PADDING_BOTTOM = 8;
 
 function applyCommonRequiredSubcommandOptions(
   subcommand: SlashCommandSubcommandBuilder
@@ -98,7 +100,11 @@ const command: DiscordCommand = {
 
     await interaction.deferReply();
 
-    const options = { maxMessageLength: MAX_MESSAGE_LENGTH };
+    const options = {
+      maxMessageLength: MAX_MESSAGE_LENGTH,
+      paddingBottom: PADDING_BOTTOM,
+      paddingTop: PADDING_TOP,
+    };
     const wordWrapOptions = { width: WIDTH };
     const { data, extension } = getRuneScapeText(
       [color, pattern && `pattern${pattern}`, motion, message]
