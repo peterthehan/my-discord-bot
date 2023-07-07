@@ -110,19 +110,24 @@ const command: DiscordCommand = {
       paddingTop: PADDING_TOP,
     };
     const wordWrapOptions = { width: WIDTH };
-    const { data, extension } = getRuneScapeText(
-      [color, pattern && `pattern${pattern}`, motion, message]
-        .filter(Boolean)
-        .join(":"),
-      options,
-      wordWrapOptions
-    );
-    const name =
-      spoiler === true ? `SPOILER_image.${extension}` : `image.${extension}`;
 
-    await interaction.editReply({
-      files: [{ attachment: Buffer.from(data), name }],
-    });
+    try {
+      const { data, extension } = getRuneScapeText(
+        [color, pattern && `pattern${pattern}`, motion, message]
+          .filter(Boolean)
+          .join(":"),
+        options,
+        wordWrapOptions
+      );
+      const name =
+        spoiler === true ? `SPOILER_image.${extension}` : `image.${extension}`;
+
+      await interaction.editReply({
+        files: [{ attachment: Buffer.from(data), name }],
+      });
+    } catch {
+      await interaction.editReply({ content: "Invalid message, try again." });
+    }
   },
 };
 
