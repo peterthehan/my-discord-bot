@@ -10,7 +10,7 @@ async function tryCatch(
   errorOverride = "",
 ): Promise<string> {
   try {
-    return callback().toString();
+    return (await callback()).toString();
   } catch (error) {
     return errorOverride ? errorOverride : (error as Error).toString();
   }
