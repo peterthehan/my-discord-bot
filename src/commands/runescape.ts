@@ -103,6 +103,7 @@ const command: DiscordCommand = {
     await interaction.deferReply();
 
     const options = {
+      enforceCapitalization: false,
       maxMessageLength: MAX_MESSAGE_LENGTH,
       paddingBottom: PADDING_BOTTOM,
       paddingLeft: PADDING_LEFT,
