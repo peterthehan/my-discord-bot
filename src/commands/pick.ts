@@ -31,10 +31,10 @@ const command: DiscordCommand = {
       .filter(Boolean) as string[];
     const selectedItem = items[getRandomInt(0, items.length)];
     const selectedCount = items.filter(
-      (item) => item.toLowerCase() === selectedItem.toLowerCase()
+      (item) => item.toLowerCase() === selectedItem.toLowerCase(),
     ).length;
     const probability = `${selectedCount} / ${items.length} = ${Math.round(
-      (selectedCount / items.length) * 100
+      (selectedCount / items.length) * 100,
     )}%`;
 
     await interaction.reply(`I pick... **${selectedItem}**\n(${probability})`);

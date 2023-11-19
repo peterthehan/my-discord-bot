@@ -15,21 +15,21 @@ const PADDING_BOTTOM = 8;
 const PADDING_LEFT = 8;
 
 function applyCommonRequiredSubcommandOptions(
-  subcommand: SlashCommandSubcommandBuilder
+  subcommand: SlashCommandSubcommandBuilder,
 ) {
   return subcommand.addStringOption((option) =>
     option
       .setName("message")
       .setDescription(
-        "The message to convert to a text image with RuneScape chat effects"
+        "The message to convert to a text image with RuneScape chat effects",
       )
       .setRequired(true)
-      .setMaxLength(MAX_MESSAGE_LENGTH)
+      .setMaxLength(MAX_MESSAGE_LENGTH),
   );
 }
 
 function applyCommonOptionalSubcommandOptions(
-  subcommand: SlashCommandSubcommandBuilder
+  subcommand: SlashCommandSubcommandBuilder,
 ) {
   return subcommand
     .addStringOption((option) =>
@@ -41,11 +41,11 @@ function applyCommonOptionalSubcommandOptions(
           { name: "shake", value: "shake" },
           { name: "slide", value: "slide" },
           { name: "wave", value: "wave" },
-          { name: "wave2", value: "wave2" }
-        )
+          { name: "wave2", value: "wave2" },
+        ),
     )
     .addBooleanOption((option) =>
-      option.setName("spoiler").setDescription("Send text image as a spoiler")
+      option.setName("spoiler").setDescription("Send text image as a spoiler"),
     );
 }
 
@@ -74,8 +74,8 @@ const command: DiscordCommand = {
               { name: "rainbow", value: "rainbow" },
               { name: "red", value: "red" },
               { name: "white", value: "white" },
-              { name: "yellow", value: "yellow" }
-            )
+              { name: "yellow", value: "yellow" },
+            ),
         );
       return applyCommonOptionalSubcommandOptions(subcommand);
     })
@@ -88,7 +88,7 @@ const command: DiscordCommand = {
             .setName("pattern")
             .setDescription("Pattern effect to apply to the message")
             .setRequired(true)
-            .setMaxLength(MAX_PATTERN_LENGTH)
+            .setMaxLength(MAX_PATTERN_LENGTH),
         );
       return applyCommonOptionalSubcommandOptions(subcommand);
     })
@@ -117,7 +117,7 @@ const command: DiscordCommand = {
           .filter(Boolean)
           .join(":"),
         options,
-        wordWrapOptions
+        wordWrapOptions,
       );
       const name =
         spoiler === true ? `SPOILER_image.${extension}` : `image.${extension}`;

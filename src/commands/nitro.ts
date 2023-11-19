@@ -14,7 +14,7 @@ import { shuffleArray } from "../utils/shuffleArray";
 const map = new Map<string, Collection<string, GuildEmoji>>();
 
 function getAnimatedEmojisByName(
-  interaction: BaseInteraction
+  interaction: BaseInteraction,
 ): Collection<string, GuildEmoji> {
   if (!interaction.guildId || !interaction.guild?.emojis) {
     return new Collection<string, GuildEmoji>();
@@ -25,7 +25,7 @@ function getAnimatedEmojisByName(
       .filter((emoji) => emoji.animated && Boolean(emoji.name))
       .reduce(
         (emojis, emoji) => emojis.set(emoji.name as string, emoji),
-        new Collection<string, GuildEmoji>()
+        new Collection<string, GuildEmoji>(),
       );
     map.set(interaction.guildId, animatedEmojis);
   }
@@ -56,7 +56,7 @@ optionsRange.forEach((i) => {
 const command: DiscordCommand = {
   async autocomplete(interaction: AutocompleteInteraction) {
     const animatedEmojiNames = Array.from(
-      getAnimatedEmojisByName(interaction).keys()
+      getAnimatedEmojisByName(interaction).keys(),
     );
     const focusedValue = interaction.options.getFocused().toLowerCase();
     let filtered;
@@ -66,12 +66,12 @@ const command: DiscordCommand = {
     } else {
       filtered = animatedEmojiNames.filter(
         (emojiName) =>
-          emojiName && emojiName.toLowerCase().includes(focusedValue)
+          emojiName && emojiName.toLowerCase().includes(focusedValue),
       );
     }
 
     await interaction.respond(
-      filtered.slice(0, 25).map((choice) => ({ name: choice, value: choice }))
+      filtered.slice(0, 25).map((choice) => ({ name: choice, value: choice })),
     );
   },
   data,
@@ -87,7 +87,10 @@ const command: DiscordCommand = {
     await interaction.reply(
       mapped.length
         ? mapped.join(" ")
-        : { content: "No animated emojis to send were found!", ephemeral: true }
+        : {
+            content: "No animated emojis to send were found!",
+            ephemeral: true,
+          },
     );
   },
 };

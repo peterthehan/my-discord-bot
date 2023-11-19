@@ -17,7 +17,7 @@ const MESSAGE_FETCH_LIMIT = Math.min(MAX_MESSAGE_DELETE_COUNT * 2, 100);
 const MESSAGE_COLLECTOR_TIMER_IN_MILLISECONDS = 30_000; // 30 seconds
 
 async function getFilteredMessages(
-  interaction: ChatInputCommandInteraction
+  interaction: ChatInputCommandInteraction,
 ): Promise<Message[]> {
   const user = interaction.options.getUser("user");
   const count = interaction.options.getInteger("count", true);
@@ -44,7 +44,7 @@ function getButtonRow(): ActionRowBuilder<ButtonBuilder> {
     .setStyle(ButtonStyle.Danger);
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
     cancelButton,
-    deleteButton
+    deleteButton,
   );
 }
 
@@ -58,12 +58,12 @@ const command: DiscordCommand = {
         .setDescription("The number of messages to delete")
         .setRequired(true)
         .setMinValue(MIN_MESSAGE_DELETE_COUNT)
-        .setMaxValue(MAX_MESSAGE_DELETE_COUNT)
+        .setMaxValue(MAX_MESSAGE_DELETE_COUNT),
     )
     .addUserOption((option) =>
       option
         .setName("user")
-        .setDescription("The user whose messages should be deleted")
+        .setDescription("The user whose messages should be deleted"),
     )
     .setDefaultMemberPermissions(0)
     .setDMPermission(false),

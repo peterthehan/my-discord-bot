@@ -12,7 +12,7 @@ const command: DiscordCommand = {
       option
         .setName("question")
         .setDescription("A Yes/No question to poll")
-        .setRequired(true)
+        .setRequired(true),
     )
     .setDMPermission(false),
   async execute(interaction: ChatInputCommandInteraction) {

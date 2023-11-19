@@ -5,7 +5,10 @@ import {
 } from "discord.js";
 import prettier from "prettier";
 
-function tryCatch(callback: () => string, errorOverride = ""): string {
+async function tryCatch(
+  callback: () => Promise<string>,
+  errorOverride = "",
+): Promise<string> {
   try {
     return callback().toString();
   } catch (error) {
@@ -25,20 +28,20 @@ const command: DiscordCommand = {
       option
         .setName("script")
         .setDescription(
-          "A string representing a JavaScript expression, statement, or sequence of statements"
+          "A string representing a JavaScript expression, statement, or sequence of statements",
         )
-        .setRequired(true)
+        .setRequired(true),
     )
     .setDefaultMemberPermissions(0)
     .setDMPermission(false),
   async execute(interaction: ChatInputCommandInteraction) {
     const script = interaction.options.getString("script", true);
 
-    const input = tryCatch(
+    const input = await tryCatch(
       () => prettier.format(script, { parser: "babel" }),
-      script
+      script,
     );
-    const output = tryCatch(() => eval(input));
+    const output = await tryCatch(() => eval(input));
 
     await interaction.reply({ content: wrapCodeBlocks(input, "js") });
     await interaction.followUp({ content: wrapCodeBlocks(output) });
